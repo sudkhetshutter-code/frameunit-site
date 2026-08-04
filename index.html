@@ -78,6 +78,16 @@
   .work-card.soon{color:var(--ink-soft);}
   .work-card.soon h3{color:var(--ink-soft);}
 
+  .work-feature{margin-top:44px;border:1px solid var(--line);}
+  .feature-gallery{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:1px;background:var(--line);}
+  @media(max-width:760px){.feature-gallery{grid-template-columns:1fr 1fr;}}
+  .feature-gallery img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:3/4;background:var(--bg-soft);}
+  .feature-gallery a:first-child img{aspect-ratio:3/4;}
+  .feature-body{padding:28px 30px 32px;border-top:1px solid var(--line);}
+  .feature-body .mono{font-size:11px;color:var(--ink-soft);}
+  .feature-body h3{font-family:'Barlow Condensed';font-weight:600;font-size:26px;margin-top:8px;}
+  .feature-body p{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:10px;max-width:640px;}
+
   .capabilities{border-top:1px solid var(--line);}
   .cap-grid{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px 32px;}
   @media(max-width:860px){.cap-grid{grid-template-columns:repeat(2,1fr);}}
@@ -157,12 +167,20 @@
   <div class="wrap">
     <div class="eyebrow">SELECTED WORK</div>
     <h2 class="sec-title display">Kits I've actually opened.</h2>
-    <div class="work-grid">
-      <div class="work-card">
-        <span class="mono">WOLF MODEL · 2025</span>
-        <h3>Barbatos Lupus Rex</h3>
-        <p>First unboxing — dark ground, single light, kept it simple.</p>
+    <div class="work-feature">
+      <div class="feature-gallery">
+        <a href="img/sol-strike-raptor-01.jpg" target="_blank"><img src="img/sol-strike-raptor-01.jpg" alt="Megami Device SOL STRIKE RAPTOR, front pose"></a>
+        <a href="img/sol-strike-raptor-02.jpg" target="_blank"><img src="img/sol-strike-raptor-02.jpg" alt="Megami Device SOL STRIKE RAPTOR, held in hand"></a>
+        <a href="img/sol-strike-raptor-03.jpg" target="_blank"><img src="img/sol-strike-raptor-03.jpg" alt="Megami Device SOL STRIKE RAPTOR, side action pose"></a>
       </div>
+      <div class="feature-body">
+        <span class="mono">KOTOBUKIYA · MEGAMI DEVICE</span>
+        <h3>SOL STRIKE RAPTOR</h3>
+        <p>นี่คือโมเดลที่ได้จับและบิวท์สีขึ้นมาใหม่ — ไม่น่าเชื่อว่าซื้อมาจากตลาดนัด แต่กลายเป็นตัวที่หลงใหลที่สุดตัวหนึ่งจากซีรีส์ Megami Device ของ Kotobukiya</p>
+      </div>
+    </div>
+
+    <div class="work-grid" style="margin-top:1px;">
       <div class="work-card soon">
         <span class="mono">COMING SOON</span>
         <h3>Still on the desk</h3>
