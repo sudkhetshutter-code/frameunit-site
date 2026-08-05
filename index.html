@@ -79,10 +79,18 @@
   .work-card.soon h3{color:var(--ink-soft);}
 
   .work-feature{margin-top:44px;border:1px solid var(--line);}
-  .feature-gallery{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:1px;background:var(--line);}
-  @media(max-width:760px){.feature-gallery{grid-template-columns:1fr 1fr;}}
-  .feature-gallery img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:3/4;background:var(--bg-soft);}
-  .feature-gallery a:first-child img{aspect-ratio:3/4;}
+  .feature-slider{position:relative;background:var(--bg-soft);}
+  .slider-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .slider-track::-webkit-scrollbar{display:none;}
+  .slider-track img{flex:0 0 100%;width:100%;aspect-ratio:4/5;object-fit:cover;scroll-snap-align:center;display:block;background:var(--bg-soft);}
+  @media(min-width:760px){.slider-track img{aspect-ratio:16/10;}}
+  .slider-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:8px;}
+  .slider-dots button{width:7px;height:7px;border-radius:50%;border:1.5px solid #fff;background:rgba(255,255,255,0.35);padding:0;cursor:pointer;}
+  .slider-dots button.active{background:#fff;}
+  .slider-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.85);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Geist Mono';font-size:16px;color:var(--ink);}
+  .slider-arrow.prev{left:14px;}
+  .slider-arrow.next{right:14px;}
+  @media(max-width:640px){.slider-arrow{display:none;}}
   .feature-body{padding:28px 30px 32px;border-top:1px solid var(--line);}
   .feature-body .mono{font-size:11px;color:var(--ink-soft);}
   .feature-body h3{font-family:'Barlow Condensed';font-weight:600;font-size:26px;margin-top:8px;}
@@ -168,10 +176,19 @@
     <div class="eyebrow">SELECTED WORK</div>
     <h2 class="sec-title display">Kits I've actually opened.</h2>
     <div class="work-feature">
-      <div class="feature-gallery">
-        <a href="sol-strike-raptor-01.jpg" target="_blank"><img src="sol-strike-raptor-01.jpg" alt="Megami Device SOL STRIKE RAPTOR, front pose"></a>
-        <a href="sol-strike-raptor-02.jpg" target="_blank"><img src="sol-strike-raptor-02.jpg" alt="Megami Device SOL STRIKE RAPTOR, held in hand"></a>
-        <a href="sol-strike-raptor-03.jpg" target="_blank"><img src="sol-strike-raptor-03.jpg" alt="Megami Device SOL STRIKE RAPTOR, side action pose"></a>
+      <div class="feature-slider" id="raptor-slider">
+        <div class="slider-track" id="raptor-track">
+          <img src="sol-strike-raptor-01.jpg" alt="Megami Device SOL STRIKE RAPTOR, front pose">
+          <img src="sol-strike-raptor-02.jpg" alt="Megami Device SOL STRIKE RAPTOR, held in hand">
+          <img src="sol-strike-raptor-03.jpg" alt="Megami Device SOL STRIKE RAPTOR, side action pose">
+        </div>
+        <button class="slider-arrow prev" onclick="slideRaptor(-1)" aria-label="Previous photo">‹</button>
+        <button class="slider-arrow next" onclick="slideRaptor(1)" aria-label="Next photo">›</button>
+        <div class="slider-dots" id="raptor-dots">
+          <button class="active" onclick="goToRaptor(0)"></button>
+          <button onclick="goToRaptor(1)"></button>
+          <button onclick="goToRaptor(2)"></button>
+        </div>
       </div>
       <div class="feature-body">
         <span class="mono">KOTOBUKIYA · MEGAMI DEVICE</span>
@@ -246,6 +263,27 @@
 </section>
 
 <footer>FRAME UNIT · FU–001 · BANGKOK · THAILAND · 2025</footer>
+
+<script>
+  (function(){
+    var track = document.getElementById('raptor-track');
+    var dots = document.querySelectorAll('#raptor-dots button');
+    var count = track.children.length;
+
+    window.goToRaptor = function(i){
+      track.scrollTo({left: track.clientWidth * i, behavior:'smooth'});
+    };
+    window.slideRaptor = function(dir){
+      var current = Math.round(track.scrollLeft / track.clientWidth);
+      var next = Math.max(0, Math.min(count - 1, current + dir));
+      window.goToRaptor(next);
+    };
+    track.addEventListener('scroll', function(){
+      var i = Math.round(track.scrollLeft / track.clientWidth);
+      dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
+    }, {passive:true});
+  })();
+</script>
 
 </body>
 </html>
