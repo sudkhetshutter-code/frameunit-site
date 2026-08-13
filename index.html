@@ -222,17 +222,36 @@
       </div>
     </div>
 
+    <div class="work-feature">
+      <div class="feature-slider" id="zaku-slider">
+        <div class="slider-track" id="zaku-track">
+          <img src="zaku-tl800-02.jpg" alt="ZAKU with TL-800 backpack unit, full pose">
+          <img src="zaku-tl800-03.jpg" alt="ZAKU with TL-800 backpack unit, cockpit close-up">
+          <img src="zaku-tl800-04.jpg" alt="ZAKU with TL-800 backpack unit, rear angle">
+          <img src="zaku-tl800-01.jpg" alt="ZAKU standing next to TL-800 unit">
+        </div>
+        <button class="slider-arrow prev" onclick="slideZaku(-1)" aria-label="Previous photo">‹</button>
+        <button class="slider-arrow next" onclick="slideZaku(1)" aria-label="Next photo">›</button>
+        <div class="slider-dots" id="zaku-dots">
+          <button class="active" onclick="goToZaku(0)"></button>
+          <button onclick="goToZaku(1)"></button>
+          <button onclick="goToZaku(2)"></button>
+          <button onclick="goToZaku(3)"></button>
+        </div>
+      </div>
+      <div class="feature-body">
+        <span class="mono" data-en="WIP" data-th="กำลังทำ">WIP</span>
+        <h3>ZAKU + TL-800 (MENGSHAN)</h3>
+      </div>
+    </div>
+
     <div class="work-grid" style="margin-top:1px;">
       <div class="work-card soon">
         <span class="mono" data-en="COMING SOON" data-th="เร็วๆ นี้">COMING SOON</span>
         <h3 data-en="Still on the desk" data-th="ยังอยู่บนโต๊ะ">Still on the desk</h3>
         <p data-en="A few more boxes waiting for a free weekend." data-th="มีอีกหลายกล่องรอวันหยุดว่างๆ อยู่">A few more boxes waiting for a free weekend.</p>
       </div>
-      <div class="work-card soon">
-        <span class="mono" data-en="COMING SOON" data-th="เร็วๆ นี้">COMING SOON</span>
-        <h3 data-en="Still on the desk" data-th="ยังอยู่บนโต๊ะ">Still on the desk</h3>
-        <p data-en="Kotobukiya and a couple of 3rd-party kits in the queue." data-th="Kotobukiya กับ 3rd-party อีกสองสามตัวรอคิวอยู่">Kotobukiya and a couple of 3rd-party kits in the queue.</p>
-      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -290,24 +309,26 @@
 <footer>FRAME UNIT · FU–001 · BANGKOK · THAILAND · 2025</footer>
 
 <script>
-  (function(){
-    var track = document.getElementById('raptor-track');
-    var dots = document.querySelectorAll('#raptor-dots button');
+  function initSlider(id, fn){
+    var track = document.getElementById(id + '-track');
+    var dots = document.querySelectorAll('#' + id + '-dots button');
     var count = track.children.length;
 
-    window.goToRaptor = function(i){
+    window['goTo' + fn] = function(i){
       track.scrollTo({left: track.clientWidth * i, behavior:'smooth'});
     };
-    window.slideRaptor = function(dir){
+    window['slide' + fn] = function(dir){
       var current = Math.round(track.scrollLeft / track.clientWidth);
       var next = Math.max(0, Math.min(count - 1, current + dir));
-      window.goToRaptor(next);
+      window['goTo' + fn](next);
     };
     track.addEventListener('scroll', function(){
       var i = Math.round(track.scrollLeft / track.clientWidth);
       dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
     }, {passive:true});
-  })();
+  }
+  initSlider('raptor', 'Raptor');
+  initSlider('zaku', 'Zaku');
 
   function setLang(lang){
     document.documentElement.setAttribute('data-lang', lang);
